@@ -1,0 +1,356 @@
+html id="edith9x"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Disaster Assistant | E.D.I.T.H System</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Orbitron', sans-serif;
+}
+
+body{
+    background:
+    radial-gradient(circle at center, #0b1020 0%, #03060f 100%);
+    color:#dffcff;
+    overflow-x:hidden;
+}
+
+/* Animated HUD background */
+body::before{
+    content:'';
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    linear-gradient(rgba(0,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,.04) 1px, transparent 1px);
+    background-size:50px 50px;
+    animation:gridMove 15s linear infinite;
+    z-index:-2;
+}
+
+@keyframes gridMove{
+    from{transform:translateY(0);}
+    to{transform:translateY(50px);}
+}
+
+/* scanning line */
+.scanline{
+    position:fixed;
+    width:100%;
+    height:4px;
+    background:linear-gradient(90deg, transparent, #7df9ff, transparent);
+    box-shadow:0 0 25px #7df9ff;
+    animation:scan 5s linear infinite;
+    z-index:999;
+}
+
+@keyframes scan{
+    0%{top:-10px;}
+    100%{top:100%;}
+}
+
+/* Header */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px 50px;
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(125,249,255,.15);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:3px;
+    color:#7df9ff;
+    text-shadow:0 0 15px #7df9ff;
+}
+
+nav a{
+    color:#b8ffff;
+    margin-left:25px;
+    text-decoration:none;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:white;
+    text-shadow:0 0 15px #7df9ff;
+}
+
+/* Hero */
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+}
+
+/* EDITH Core */
+.edith-core{
+    position:relative;
+    width:320px;
+    height:320px;
+    margin-bottom:40px;
+}
+
+.ring{
+    position:absolute;
+    border:2px solid rgba(125,249,255,.6);
+    border-radius:50%;
+    animation:rotate linear infinite;
+}
+
+.ring:nth-child(1){
+    width:320px;
+    height:320px;
+    animation-duration:15s;
+}
+
+.ring:nth-child(2){
+    width:250px;
+    height:250px;
+    top:35px;
+    left:35px;
+    animation-duration:10s;
+    animation-direction:reverse;
+}
+
+.ring:nth-child(3){
+    width:180px;
+    height:180px;
+    top:70px;
+    left:70px;
+    animation-duration:8s;
+}
+
+.core-center{
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:radial-gradient(circle, #7df9ff, transparent);
+    top:110px;
+    left:110px;
+    box-shadow:
+        0 0 30px #7df9ff,
+        0 0 80px #7df9ff;
+}
+
+@keyframes rotate{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+/* Hero Text */
+.hero h1{
+    font-size:65px;
+    letter-spacing:4px;
+    margin-bottom:20px;
+    text-shadow:0 0 20px #7df9ff;
+}
+
+.hero p{
+    width:70%;
+    color:#9bdde2;
+    line-height:1.8;
+    margin-bottom:35px;
+}
+
+/* Button */
+.btn{
+    padding:18px 40px;
+    background:rgba(125,249,255,.08);
+    border:1px solid rgba(125,249,255,.4);
+    color:#7df9ff;
+    border-radius:50px;
+    cursor:pointer;
+    transition:.3s;
+    backdrop-filter:blur(20px);
+}
+
+.btn:hover{
+    box-shadow:0 0 25px #7df9ff;
+    transform:scale(1.05);
+}
+
+/* Floating Panels */
+.dashboard{
+    padding:80px 50px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.panel{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(125,249,255,.1);
+    backdrop-filter:blur(20px);
+    border-radius:20px;
+    padding:25px;
+    transition:.3s;
+    box-shadow:0 0 20px rgba(125,249,255,.05);
+}
+
+.panel:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 25px rgba(125,249,255,.3);
+}
+
+.panel h3{
+    color:#7df9ff;
+    margin-bottom:15px;
+}
+
+/* Tactical Metrics */
+.metrics{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    padding:60px;
+}
+
+.metric{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    border:1px solid rgba(125,249,255,.2);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 25px rgba(125,249,255,.08);
+}
+
+.metric h2{
+    font-size:42px;
+    color:#7df9ff;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid rgba(125,249,255,.08);
+    color:#89c9d1;
+}
+
+@media(max-width:768px){
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero p{
+        width:90%;
+    }
+
+    header{
+        flex-direction:column;
+    }
+
+    nav{
+        margin-top:15px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header>
+    <div class="logo">E.D.I.T.H SYSTEM</div>
+    <nav>
+        <a href="#">Surveillance</a>
+        <a href="#">Disaster Map</a>
+        <a href="#">Emergency Protocol</a>
+        <a href="#">Satellite Feed</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="edith-core">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="core-center"></div>
+    </div>
+
+    <h1>MY DISASTER ASSISTANT</h1>
+    <p>
+        Even Deadly Incidents, Threats & Hazards.
+        A Stark-level tactical AI designed for predictive disaster detection,
+        live rescue deployment, environmental analytics, and emergency control.
+    </p>
+
+    <button class="btn" onclick="activateEdith()">
+        ACTIVATE TACTICAL RESPONSE
+    </button>
+</section>
+
+<section class="dashboard">
+    <div class="panel">
+        <h3>LIVE SATELLITE TRACKING</h3>
+        <p>Global weather, flood and fire anomaly detection.</p>
+    </div>
+
+    <div class="panel">
+        <h3>TACTICAL EVACUATION AI</h3>
+        <p>Dynamic evacuation path generation using AI simulations.</p>
+    </div>
+
+    <div class="panel">
+        <h3>EMERGENCY UNIT DEPLOYMENT</h3>
+        <p>Real-time rescue coordination and location intelligence.</p>
+    </div>
+
+    <div class="panel">
+        <h3>THREAT PREDICTION ENGINE</h3>
+        <p>Machine learning disaster probability and early warning system.</p>
+    </div>
+</section>
+
+<section class="metrics">
+    <div class="metric">
+        <p>Threat Index</p>
+        <h2>07%</h2>
+    </div>
+
+    <div class="metric">
+        <p>Rescue Units</p>
+        <h2>14</h2>
+    </div>
+
+    <div class="metric">
+        <p>Safe Zones</p>
+        <h2>21</h2>
+    </div>
+</section>
+
+<footer>
+    E.D.I.T.H ACTIVE • STARK PROTOCOL INITIALIZED • DISASTER GRID ONLINE
+</footer>
+
+<script>
+function activateEdith(){
+    alert("E.D.I.T.H activated. Tactical disaster intelligence online.");
+}
+</script>
+<elevenlabs-convai agent-id="agent_5101kwbqaggxfnwbkyqbj9z5wy1f"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+</body>
+</html>
